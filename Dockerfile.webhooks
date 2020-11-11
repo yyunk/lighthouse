@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 RUN  apt-get update &&  apt install openssh-client ca-certificates git  -y
-COPY ./bin/webhooks  /webhooks
+COPY ./bin/lighthouse  /lighthouse
 RUN mkdir /jxhome
 ENV JX_HOME /jxhome
-ENTRYPOINT ["/webhooks"]
+ENTRYPOINT ["/lighthouse"]
 
