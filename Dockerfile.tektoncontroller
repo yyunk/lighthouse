@@ -1,4 +1,4 @@
-FROM alpine:3.10
-RUN apk add --update --no-cache ca-certificates git
+FROM ubuntu:18.04
+RUN  apt-get update &&  apt install openssh-client ca-certificates git  -y
 COPY ./bin/lighthouse-tekton-controller /lighthouse-tekton-controller
 ENTRYPOINT ["/lighthouse-tekton-controller"]
