@@ -1,0 +1,172 @@
+git:
+  kind: github
+  name: github
+  server: ""
+
+lighthouseJobNamespace: ""
+
+githubApp:
+  enabled: false
+  username:  "jenkins-x[bot]"
+
+# the secret used for webhooks
+hmacToken: "MTIzNDU2Cg"
+
+# Default values for Go projects.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+image:
+  parentRepository: 
+  tag: 0.0.738
+  pullPolicy: IfNotPresent
+
+# define environment variables here as a map of key: value
+env:
+  JX_DEFAULT_IMAGE: ""
+
+gcJobs:
+  maxAge: 168h
+  image:
+    repository: "{{ .Values.image.parentRepository }}lighthouse-gc-jobs"
+    tag: "{{ .Values.image.tag }}"
+    pullPolicy: "{{ .Values.image.pullPolicy }}"
+  schedule: "0/30 * * * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+
+webhooks:
+  replicaCount: 2
+  image:
+    repository: "{{ .Values.image.parentRepository }}lighthouse-webhooks"
+    tag: "{{ .Values.image.tag }}"
+    pullPolicy: "{{ .Values.image.pullPolicy }}"
+  service:
+    name: hook
+    type: ClusterIP
+    externalPort: 80
+    internalPort: 8080
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 80m
+      memory: 128Mi
+  probe:
+    path: /
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  readinessProbe:
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  terminationGracePeriodSeconds: 180
+
+foghorn:
+  replicaCount: 1
+  image:
+    repository: "{{ .Values.image.parentRepository }}lighthouse-foghorn"
+    tag: "{{ .Values.image.tag }}"
+    pullPolicy: "{{ .Values.image.pullPolicy }}"
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 80m
+      memory: 128Mi
+  terminationGracePeriodSeconds: 180
+  reportURLBase: ""
+
+tektoncontroller:
+  dashboardURL: ""
+  replicaCount: 1
+  image:
+    repository: "{{ .Values.image.parentRepository }}lighthouse-tekton-controller"
+    tag: "{{ .Values.image.tag }}"
+    pullPolicy: "{{ .Values.image.pullPolicy }}"
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 80m
+      memory: 128Mi
+  terminationGracePeriodSeconds: 180
+
+keeper:
+  statusContextLabel: "Lighthouse Merge Status"
+  replicaCount: 1
+  livenessProbe:
+    initialDelaySeconds: 120
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  readinessProbe:
+    periodSeconds: 10
+    successThreshold: 1
+    timeoutSeconds: 1
+  probe:
+    path: /
+  image:
+    repository: "{{ .Values.image.parentRepository }}lighthouse-keeper"
+    tag: "{{ .Values.image.tag }}"
+  imagePullPolicy: IfNotPresent
+  terminationGracePeriodSeconds: 30
+  resources:
+    limits:
+     cpu: 400m
+     memory: 512Mi
+    requests:
+     cpu: 100m
+     memory: 128Mi
+  service:
+    type: ClusterIP
+    externalPort: 80
+    internalPort: 8888
+  datadog:
+    enabled: "true"
+
+vault:
+  enabled: false
+
+clusterName: ""
+
+user: "yyk757"
+
+logFormat: "json"
+
+cluster:
+  crds:
+    create: false
+
+engines:
+  jx: false
+  tekton: true
+
+createIngress: true
+
+domainName: "lighthouse3.jenkins-x.arm64.linaro.org"
+
+hook:
+  ingress:
+    class: nginx
+    annotations:
+    tls:
+      secretName: ""
+
+configMaps:
+  create: true
+  config: null
+  plugins: null
+  configUpdater:
+    orgAndRepo: ""
+    path: ""
+  # Example of specifying config-updater repository, which should contain "config.yaml" and "plugins.yaml" in the given path.
+  # configUpdater:
+  #   orgAndRepo: foo/bar
+  #   path: a/b/c
