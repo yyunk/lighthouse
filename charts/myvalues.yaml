@@ -150,7 +150,7 @@ engines:
 
 createIngress: true
 
-domainName: "lighthouse3.jenkins-x.arm64.linaro.org"
+domainName: "lighthouse5.jenkins-x.arm64.linaro.org"
 
 hook:
   ingress:
