@@ -1,0 +1,20 @@
+#lighthouse 配置文件
+
+#统一编译的路径
+compile_directory:
+
+#编译出来的二进制文件的路径；dockerfile路径；container image名称
+
+build_image_info_1:/bin/foghorn;/Dockerfile.foghorn;lighthouse_foghorn
+build_image_info_2:/bin/gc-jobs;/Dockerfile.gcJobs;lighthouse_gcjobs
+build_image_info_3:/bin/keeper;/Dockerfile.keeper;lighthouse_keeper
+build_image_info_4:/bin/lighthouse-tekton-controller;/Dockerfile.tektoncontroller;lighthouse_tektoncontroller
+build_image_info_5:/bin/webhooks;/Dockerfile.webhooks;lighthouse_webhooks
+
+
+image_tag:0.15
+
+
+###############
+#docker私有仓库url
+docker regisstry:213.146.155.118:5000
