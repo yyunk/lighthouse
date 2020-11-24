@@ -16,7 +16,7 @@ hmacToken: "MTIzNDU2Cg"
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
-  parentRepository: http://213.146.155.118:5500/
+  parentRepository: 213.146.155.118:5500/
   tag: test-loop
   pullPolicy: IfNotPresent
 
