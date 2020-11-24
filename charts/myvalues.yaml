@@ -16,8 +16,8 @@ hmacToken: "MTIzNDU2Cg"
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 image:
-  parentRepository: 
-  tag: 0.0.738
+  parentRepository: http://213.146.155.118:5500/
+  tag: test-loop
   pullPolicy: IfNotPresent
 
 # define environment variables here as a map of key: value
@@ -27,7 +27,7 @@ env:
 gcJobs:
   maxAge: 168h
   image:
-    repository: "{{ .Values.image.parentRepository }}lighthouse-gc-jobs"
+    repository: "{{ .Values.image.parentRepository }}lighthouse_gcjobs"
     tag: "{{ .Values.image.tag }}"
     pullPolicy: "{{ .Values.image.pullPolicy }}"
   schedule: "0/30 * * * *"
@@ -38,7 +38,7 @@ gcJobs:
 webhooks:
   replicaCount: 2
   image:
-    repository: "{{ .Values.image.parentRepository }}lighthouse-webhooks"
+    repository: "{{ .Values.image.parentRepository }}lighthouse_webhooks"
     tag: "{{ .Values.image.tag }}"
     pullPolicy: "{{ .Values.image.pullPolicy }}"
   service:
@@ -69,7 +69,7 @@ webhooks:
 foghorn:
   replicaCount: 1
   image:
-    repository: "{{ .Values.image.parentRepository }}lighthouse-foghorn"
+    repository: "{{ .Values.image.parentRepository }}lighthouse_foghorn"
     tag: "{{ .Values.image.tag }}"
     pullPolicy: "{{ .Values.image.pullPolicy }}"
   resources:
@@ -86,7 +86,7 @@ tektoncontroller:
   dashboardURL: ""
   replicaCount: 1
   image:
-    repository: "{{ .Values.image.parentRepository }}lighthouse-tekton-controller"
+    repository: "{{ .Values.image.parentRepository }}lighthouse_tektoncontroller"
     tag: "{{ .Values.image.tag }}"
     pullPolicy: "{{ .Values.image.pullPolicy }}"
   resources:
@@ -113,7 +113,7 @@ keeper:
   probe:
     path: /
   image:
-    repository: "{{ .Values.image.parentRepository }}lighthouse-keeper"
+    repository: "{{ .Values.image.parentRepository }}lighthouse_keeper"
     tag: "{{ .Values.image.tag }}"
   imagePullPolicy: IfNotPresent
   terminationGracePeriodSeconds: 30
