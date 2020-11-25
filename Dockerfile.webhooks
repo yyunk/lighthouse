@@ -7,4 +7,6 @@ COPY ./bin/webhooks  /webhooks
 RUN mkdir -p /jxhome
 ENV JX_HOME /jxhome
 ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RUN ls /usr/bin
+RUN cp /usr/bin/git /
 ENTRYPOINT ["/webhooks"]
