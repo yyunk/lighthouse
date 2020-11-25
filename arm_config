@@ -12,10 +12,9 @@ build_image_info_4:/bin/lighthouse-tekton-controller;/Dockerfile.tektoncontrolle
 build_image_info_5:/bin/webhooks;/Dockerfile.webhooks;lighthouse_webhooks
 
 
-image_tag:0.15
 
 binary_path_in_dockerfile:/bin
 
 ###############
 #docker私有仓库url
-docker regisstry:213.146.155.118:5000
+docker registry:213.146.155.118:5000
