@@ -18,7 +18,7 @@ hmacToken: "MTIzNDU2Cg"
 image:
   parentRepository: 213.146.155.118:5500/
   tag: test-loop
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # define environment variables here as a map of key: value
 env:
