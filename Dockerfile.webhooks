@@ -3,4 +3,5 @@ RUN  apt-get update &&  apt-get install git openssh-client ca-certificates   -y
 COPY ./bin/webhooks  /webhooks
 RUN mkdir -p /jxhome
 ENV JX_HOME /jxhome
+ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENTRYPOINT ["/webhooks"]
