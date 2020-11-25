@@ -1,6 +1,8 @@
 FROM ubuntu:18.04
 RUN  apt update 
 RUN  apt install git  openssh-client ca-certificates -y
+RUN  git version
+RUN which git 
 COPY ./bin/webhooks  /webhooks
 RUN mkdir -p /jxhome
 ENV JX_HOME /jxhome
