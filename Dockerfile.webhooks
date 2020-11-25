@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 RUN  apt update 
-RUN  apt install git  openssh-client ca-certificates -y
+RUN  apt install dialog
+RUN  apt install -y  git  openssh-client ca-certificates 
 RUN  git version
 RUN which git 
 COPY ./bin/webhooks  /webhooks
